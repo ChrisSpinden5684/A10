@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cookie Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #cookieDisplay {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #333;
+            background: #eee;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Cookie Test</h1>
+<button onclick="setCookie()">Set Cookie</button>
+
+<div id="cookieDisplay">Cookie value: (none yet)</div>
+
+<script>
+    function setCookie() {
+        // Sets cookie valid for 1 day
+        document.cookie = "testCookie=HelloWorld; max-age=86400; path=/";
+        alert("Cookie has been set! Reload the page.");
+    }
+
+    function displayCookie() {
+        const cookies = document.cookie;
+        document.getElementById("cookieDisplay").innerText = 
+            "Cookie value: " + (cookies || "(none found)");
+    }
+
+    displayCookie();
+</script>
+
+</body>
+</html>
