@@ -16,25 +16,40 @@
 <body>
 
 <h1>Cookie Test</h1>
-<button onclick="setCookie()">Set Cookie</button>
 
 <div id="cookieDisplay">Cookie value: (none yet)</div>
 
 <script>
-    function setCookie() {
-        // Sets cookie valid for 1 day
-        document.cookie = "testCookie=HelloWorld; max-age=86400; path=/";
-        alert("Cookie has been set! Reload the page.");
+    function setCookie(value) {
+        document.cookie = "userCookie=" + encodeURIComponent(value) + "; max-age=86400; path=/";
     }
-
+    function getCookie(name) {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            let [key, val] = cookie.trim().split('=');
+            if (key === name) return decodeURIComponent(val);
+        }
+        return null;
+    }
     function displayCookie() {
-        const cookies = document.cookie;
-        document.getElementById("cookieDisplay").innerText = 
-            "Cookie value: " + (cookies || "(none found)");
+        const cookieVal = getCookie("userCookie");
+        const display = document.getElementById("cookieDisplay");
+        if (cookieVal) {
+            display.innerText = "Cookie value: " + cookieVal;
+        } else {
+            // Ask the user for a value if no cookie is found
+            const userInput = prompt("Enter a value for your cookie:");
+            if (userInput) {
+                setCookie(userInput);
+                display.innerText = "Cookie value: " + userInput;
+            } else {
+                display.innerText = "Cookie value: (none set)";
+            }
+        }
     }
-
-    displayCookie();
+    window.onload = displayCookie;
 </script>
+
 <footer>
     <p>&copy; Christopher Spinden November 18, 2025</p>
 </footer>
