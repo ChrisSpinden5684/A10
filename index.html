@@ -11,6 +11,11 @@
             background: #eee;
             width: 300px;
         }
+        button {
+            padding: 8px 12px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -18,6 +23,8 @@
 <h1>Cookie Test</h1>
 
 <div id="cookieDisplay">Cookie value: (none yet)</div>
+
+<button onclick="clearCookie()">Clear Cookie</button>
 
 <script>
     function setCookie(value) {
@@ -30,6 +37,11 @@
             if (key === name) return decodeURIComponent(val);
         }
         return null;
+    }
+
+    function clearCookie() {
+        document.cookie = "userCookie=; max-age=0; path=/";
+        location.reload(); 
     }
     function displayCookie() {
         const cookieVal = getCookie("userCookie");
@@ -55,4 +67,3 @@
 </footer>
 </body>
 </html>
-
